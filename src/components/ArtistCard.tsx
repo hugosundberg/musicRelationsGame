@@ -1,21 +1,21 @@
+import "./ArtistCard.css";
+
 interface ArtistProps {
   name: string;
   img: string;
 }
 
-const Artist = ({ name, img }: ArtistProps) => {
+const ArtistCard = ({ name, img }: ArtistProps) => {
   return (
     <>
-      <div>
-        <h2>Artist: {name}</h2>
-        {img && (
-          <div>
-            <img src={img} alt={name} style={{ width: "200px" }} />
-          </div>
-        )}
+      <div className="artist-card">
+        <h2>{name}</h2>
+        <div className="image-container">
+          {img && <img src={img} alt={name} />}
+        </div>
       </div>
     </>
   );
 };
 
-export default Artist;
+export default ArtistCard;

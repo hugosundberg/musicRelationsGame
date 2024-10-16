@@ -1,0 +1,24 @@
+.artist-card {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    border-radius: 10px;
+    align-items: center;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 15px;
+}
+
+img {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.image-container {
+    height: 150px;
+    width: 150px;
+    overflow-y: hidden;
+}

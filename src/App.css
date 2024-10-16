@@ -3,8 +3,21 @@
   width: 100%;
   top: 0;
   padding-inline: 20px;
-  background-color: green;
+  background-color: black;
+  color: rgb(0, 166, 0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin-right: 40px;
+  color: white;
 }
 
 body, html, #root {
@@ -12,9 +25,11 @@ body, html, #root {
   width: 100%;
 }
 
+
+
 .game-body {
   width: 100%;
-  position: relative;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;

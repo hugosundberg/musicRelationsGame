@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Artist from "./components/Artist";
+import ArtistList from "./components/ArtistList";
+import NavigationBar from "./components/NavigationBar";
 import spotifyAPI from "./services/spotifyAPI";
 import "./App.css";
 
@@ -48,21 +49,11 @@ const App = () => {
 
   return (
     <>
-      <div className="nav-bar">
-        <h3>Music Relations</h3>
-      </div>
+      <NavigationBar />
       <div className="game-body">
         <h1>Music Relations Game</h1>
         <button onClick={fetchRelatedArtists}>Fetch Related Artists</button>
-        <div className="artist-list">
-          {relatedArtists.length > 0 ? (
-            relatedArtists.map((artist, index) => (
-              <Artist key={index} name={artist.name} img={artist.img} />
-            ))
-          ) : (
-            <p>No related artists yet. Click the button to fetch.</p>
-          )}
-        </div>
+        <ArtistList relatedArtists={relatedArtists} />
       </div>
     </>
   );

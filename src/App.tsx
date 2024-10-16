@@ -1,73 +1,48 @@
 import { useEffect, useState } from "react";
+import Artist from "./components/Artist";
+import spotifyAPI from "./services/spotifyAPI";
 import "./App.css";
 
-const BASE_URL = "https://api.spotify.com/v1";
-
-const CLIENT_ID = "e1eebe4956964238811ab09bbe1f57d2";
-const CLIENT_SECRET = "e800e3cc91c84163baa2b4d43e0f84bf";
-
-interface ArtistProps {
+interface ArtistType {
   name: string;
   img: string;
 }
 
 const App = () => {
   const [accessToken, setAccessToken] = useState<string>("");
-  const [currentArtist, setCurrentArtist] = useState<any>(null);
+  const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 
+  const artistID = "0TnOYISbd1XYRBk9myaseg"; // Example artist ID (Pitbull)
+
+  // Fetch Access Token when the component is mounted
   useEffect(() => {
-    const fetchAccessToken = async () => {
-      const authParameters = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-        }),
-      };
-
+    const fetchToken = async () => {
       try {
-        const result = await fetch(
-          "https://accounts.spotify.com/api/token",
-          authParameters
-        );
-        const data = await result.json();
-        setAccessToken(data.access_token);
+        const token = await spotifyAPI.fetchAccessToken(); // Corrected to fetch the access token
+        setAccessToken(token);
       } catch (error) {
-        console.error("Error fetching access token", error);
+        console.error("Error fetching access token:", error);
       }
     };
 
-    fetchAccessToken();
+    fetchToken();
   }, []);
 
-  const fetchArtist = async () => {
+  // Fetch Related Artists
+  const fetchRelatedArtists = async () => {
     if (!accessToken) {
       console.log("Access token not available yet.");
       return;
     }
 
-    const authParameters = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
-
     try {
-      const response = await fetch(
-        `${BASE_URL}/artists/0TnOYISbd1XYRBk9myaseg`,
-        authParameters
+      const artists = await spotifyAPI.fetchRelatedArtists(
+        artistID,
+        accessToken
       );
-      const data = await response.json();
-
-      setCurrentArtist(data);
+      setRelatedArtists(artists);
     } catch (error) {
-      console.error("Error fetching artist data", error);
+      console.error("Error fetching related artists:", error);
     }
   };
 
@@ -78,33 +53,19 @@ const App = () => {
       </div>
       <div className="game-body">
         <h1>Music Relations Game</h1>
-        <button onClick={fetchArtist}>Fetch Artist</button>
-        {currentArtist && (
-          <Artist
-            name={currentArtist.name}
-            img={
-              currentArtist.images && currentArtist.images[0]
-                ? currentArtist.images[0].url
-                : ""
-            }
-          />
-        )}
+        <button onClick={fetchRelatedArtists}>Fetch Related Artists</button>
+        <div className="artist-list">
+          {relatedArtists.length > 0 ? (
+            relatedArtists.map((artist, index) => (
+              <Artist key={index} name={artist.name} img={artist.img} />
+            ))
+          ) : (
+            <p>No related artists yet. Click the button to fetch.</p>
+          )}
+        </div>
       </div>
     </>
   );
 };
-
-function Artist({ name, img }: ArtistProps) {
-  return (
-    <>
-      <div>Artist name: {name}</div>
-      {img && (
-        <div>
-          <img src={img} alt={name} style={{ width: "200px" }} />
-        </div>
-      )}
-    </>
-  );
-}
 
 export default App;

@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-const BASE_URL = "https://api.spotify.com/v1"; // Corrected to include /v1
+const BASE_URL = "https://api.spotify.com/v1";
 
 const CLIENT_ID = "e1eebe4956964238811ab09bbe1f57d2";
 const CLIENT_SECRET = "e800e3cc91c84163baa2b4d43e0f84bf";
 
+interface ArtistProps {
+  name: string;
+  img: string;
+}
+
 const App = () => {
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState<string>("");
+  const [currentArtist, setCurrentArtist] = useState<any>(null);
 
   useEffect(() => {
-    // API Access Token
     const fetchAccessToken = async () => {
       const authParameters = {
         method: "POST",
@@ -30,7 +35,7 @@ const App = () => {
           authParameters
         );
         const data = await result.json();
-        setAccessToken(data.access_token); // Update the state with access token
+        setAccessToken(data.access_token);
       } catch (error) {
         console.error("Error fetching access token", error);
       }
@@ -39,7 +44,7 @@ const App = () => {
     fetchAccessToken();
   }, []);
 
-  const fetchAlbum = async () => {
+  const fetchArtist = async () => {
     if (!accessToken) {
       console.log("Access token not available yet.");
       return;
@@ -49,7 +54,7 @@ const App = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`, // Correct usage of access token
+        Authorization: `Bearer ${accessToken}`,
       },
     };
 
@@ -59,10 +64,8 @@ const App = () => {
         authParameters
       );
       const data = await response.json();
-      console.log("Artist Data:", data); // Log the fetched data
 
-      console.log("Artist name: " + data.name);
-      console.log("Img src: " + data.images);
+      setCurrentArtist(data);
     } catch (error) {
       console.error("Error fetching artist data", error);
     }
@@ -75,16 +78,33 @@ const App = () => {
       </div>
       <div className="game-body">
         <h1>Music Relations Game</h1>
-        <input type="text" />
-        <button onClick={fetchAlbum}>Click me</button>
-        <Artist />
+        <button onClick={fetchArtist}>Fetch Artist</button>
+        {currentArtist && (
+          <Artist
+            name={currentArtist.name}
+            img={
+              currentArtist.images && currentArtist.images[0]
+                ? currentArtist.images[0].url
+                : ""
+            }
+          />
+        )}
       </div>
     </>
   );
 };
 
-function Artist() {
-  return <div>Artist name: </div>;
+function Artist({ name, img }: ArtistProps) {
+  return (
+    <>
+      <div>Artist name: {name}</div>
+      {img && (
+        <div>
+          <img src={img} alt={name} style={{ width: "200px" }} />
+        </div>
+      )}
+    </>
+  );
 }
 
 export default App;

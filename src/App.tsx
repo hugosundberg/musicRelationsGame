@@ -17,7 +17,7 @@ const App = () => {
   const [isErrorVisable, setIsErrorVisable] = useState(false);
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 
-  const artistID = "0TnOYISbd1XYRBk9myaseg "; // Example artist ID (Pitbull)
+  const artistID = "0TnOYISbd1XYRBk9myaseg"; // Example artist ID (Pitbull)
 
   const showError = () => {
     setIsErrorVisable(true);

@@ -1,5 +1,5 @@
 import ArtistCard from "./ArtistCard";
-import "./ArtisList.css";
+import "./ArtistList.css";
 
 // Define the type for relatedArtists prop
 interface ArtistType {

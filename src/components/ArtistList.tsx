@@ -19,7 +19,7 @@ const ArtistList = ({ relatedArtists }: ArtistListProps) => {
           <ArtistCard key={index} name={artist.name} img={artist.img} />
         ))
       ) : (
-        <p>No related artists yet. Click the button to fetch.</p>
+        <p></p>
       )}
     </div>
   );

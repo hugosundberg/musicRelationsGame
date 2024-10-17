@@ -1,5 +1,7 @@
 // spotifyAPI.ts
 
+import { useEffect } from "react";
+
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = "e1eebe4956964238811ab09bbe1f57d2";
 const CLIENT_SECRET = "e800e3cc91c84163baa2b4d43e0f84bf";
@@ -27,6 +29,28 @@ const fetchAccessToken = async (): Promise<string> => {
     return data.access_token;
   } catch (error) {
     throw new Error("Failed to fetch access token");
+  }
+};
+
+// Handle artist search
+const handleSearch = async (searchQuery: string, accessToken: string) => {
+  const authParameters = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  try {
+    const response = await fetch(
+      BASE_URL + "/search?q=" + { searchQuery } + "&type=artist&market=us",
+      authParameters
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error fetching artist", error);
   }
 };
 
@@ -60,4 +84,5 @@ const fetchRelatedArtists = async (artistID: string, accessToken: string) => {
 export default {
   fetchAccessToken,
   fetchRelatedArtists,
+  handleSearch,
 };

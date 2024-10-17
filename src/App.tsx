@@ -17,11 +17,9 @@ const App = () => {
   const [isErrorVisable, setIsErrorVisable] = useState(false);
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
 
-  const artistID = "0TnOYISbd1XYRBk9myaseg"; // Example artist ID (Pitbull)
+  const [currentArtist, setCurrentArtist] = useState("");
 
-  const showError = () => {
-    setIsErrorVisable(true);
-  };
+  const artistID = "0TnOYISbd1XYRBk9myaseg"; // Example artist ID (Pitbull)
 
   const closeError = () => {
     setIsErrorVisable(false);
@@ -63,6 +61,14 @@ const App = () => {
     }
   };
 
+  const handleSearch = async () => {
+    try {
+      const artist = await spotifyAPI.handleSearch("Taylor Swift", accessToken);
+    } catch (error) {
+      console.error("Error searching", error);
+    }
+  };
+
   return (
     <>
       <NavigationBar />
@@ -73,6 +79,24 @@ const App = () => {
           isErrorVisable={isErrorVisable}
           closeError={closeError}
         />
+        <div className="input-group mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Recipient's username"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <button
+            className="btn btn-outline-secondary"
+            type="button"
+            id="button-addon2"
+            onClick={handleSearch}
+          >
+            Button
+          </button>
+        </div>
+
         <button onClick={fetchRelatedArtists}>Fetch Related Artists</button>
         <ArtistList relatedArtists={relatedArtists} />
       </div>

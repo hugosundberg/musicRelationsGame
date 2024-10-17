@@ -1,7 +1,5 @@
 // spotifyAPI.ts
 
-import { useEffect } from "react";
-
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = "e1eebe4956964238811ab09bbe1f57d2";
 const CLIENT_SECRET = "e800e3cc91c84163baa2b4d43e0f84bf";
@@ -44,11 +42,14 @@ const handleSearch = async (searchQuery: string, accessToken: string) => {
 
   try {
     const response = await fetch(
-      BASE_URL + "/search?q=" + { searchQuery } + "&type=artist&market=us",
+      BASE_URL + "/search?q=" + searchQuery + "&type=artist&market=us&offset=0",
       authParameters
     );
     const data = await response.json();
-    console.log(data);
+
+    const artist = data.artists.items[0];
+
+    return artist.id;
   } catch (error) {
     console.error("Error fetching artist", error);
   }

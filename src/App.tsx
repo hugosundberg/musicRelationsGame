@@ -14,41 +14,45 @@ interface ArtistType {
 const App = () => {
   const [accessToken, setAccessToken] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [isErrorVisable, setIsErrorVisable] = useState(false);
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Manage search query
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
-
-  const [currentArtist, setCurrentArtist] = useState("");
-
-  const artistID = "0TnOYISbd1XYRBk9myaseg"; // Example artist ID (Pitbull)
+  const [currentArtist, setCurrentArtist] = useState<string>("");
 
   const closeError = () => {
-    setIsErrorVisable(false);
+    setIsErrorVisible(false);
   };
 
   // Fetch Access Token when the component is mounted
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const token = await spotifyAPI.fetchAccessToken(); // Corrected to fetch the access token
+        const token = await spotifyAPI.fetchAccessToken(); // Fetch the access token
         setAccessToken(token);
       } catch (error) {
         console.error("Error fetching access token:", error);
+        setErrorMessage("Error fetching access token. Please try again later.");
+        setIsErrorVisible(true);
       }
     };
-
     fetchToken();
   }, []);
 
-  // Fetch Related Artists
+  // Fetch Related Artists using currentArtist
   const fetchRelatedArtists = async () => {
     if (!accessToken) {
       console.log("Access token not available yet.");
       return;
     }
 
+    if (!currentArtist) {
+      console.log("No current artist selected yet.");
+      return;
+    }
+
     try {
       const artists = await spotifyAPI.fetchRelatedArtists(
-        artistID,
+        currentArtist,
         accessToken
       );
       setRelatedArtists(artists);
@@ -57,15 +61,26 @@ const App = () => {
       setErrorMessage(
         "There was an error fetching related artists. Please try again later."
       );
-      setIsErrorVisable(true);
+      setIsErrorVisible(true);
     }
   };
 
+  // Handle artist search using the search query
   const handleSearch = async () => {
+    if (!searchQuery.trim()) {
+      setErrorMessage("Please enter a search query.");
+      setIsErrorVisible(true);
+      return;
+    }
+
     try {
-      const artist = await spotifyAPI.handleSearch("Taylor Swift", accessToken);
+      const artistID = await spotifyAPI.handleSearch(searchQuery, accessToken);
+      setCurrentArtist(artistID); // Update current artist with the artist ID
+      fetchRelatedArtists(); // Fetch related artists after setting the current artist
     } catch (error) {
-      console.error("Error searching", error);
+      console.error("Error searching artist:", error);
+      setErrorMessage("Error occurred during the search. Please try again.");
+      setIsErrorVisible(true);
     }
   };
 
@@ -76,28 +91,31 @@ const App = () => {
         <h1>Music Relations Game</h1>
         <Error
           message={errorMessage}
-          isErrorVisable={isErrorVisable}
+          isErrorVisable={isErrorVisible}
           closeError={closeError}
         />
+
+        {/* Input and Search Button */}
         <div className="input-group mb-3">
           <input
             type="text"
             className="form-control"
-            placeholder="Recipient's username"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
+            placeholder="Search for an artist"
+            aria-label="Search artist"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
           />
           <button
-            className="btn btn-outline-secondary"
+            className="btn btn-secondary"
             type="button"
             id="button-addon2"
             onClick={handleSearch}
           >
-            Button
+            Search
           </button>
         </div>
 
-        <button onClick={fetchRelatedArtists}>Fetch Related Artists</button>
+        {/* Artist List (Related Artists) */}
         <ArtistList relatedArtists={relatedArtists} />
       </div>
     </>

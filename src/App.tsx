@@ -3,7 +3,7 @@ import ArtistList from "./components/ArtistList";
 import NavigationBar from "./components/NavigationBar";
 import Error from "./components/Error";
 import spotifyAPI from "./services/spotifyAPI";
-import DynamicSearch from "./components/DynamicSearch";
+import GameHeader from "./components/GameHeader";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame";
@@ -117,6 +117,7 @@ const App = () => {
     <>
       <NavigationBar showCreateGame={showCreateGame} />
       <div className="game-body">
+        <GameHeader startArtist={startArtist} targetArtist={targetArtist} />
         <CreateGame
           isVisible={isCreateGameVisible}
           closeCreateGame={closeCreateGame}

@@ -8,7 +8,12 @@
     padding: 10px;
 }
 
-h2 {
+.artist-card:hover {
+    cursor: pointer;
+    scale: 1.05;
+}
+
+.artist-card h2 {
     font-size: 15px;
 }
 

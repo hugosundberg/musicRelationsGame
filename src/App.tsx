@@ -15,15 +15,21 @@ interface ArtistType {
 
 const App = () => {
   const [accessToken, setAccessToken] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [isErrorVisible, setIsErrorVisible] = useState(false);
-  const [searchQuery, setSearchQuery] = useState<string>(""); // Manage search query
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
   const [currentArtist, setCurrentArtist] = useState<string>("");
+
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
 
   const closeError = () => {
     setIsErrorVisible(false);
+  };
+
+  const showCreateGame = () => {
+    setIsCreateGameVisible(true);
   };
 
   const closeCreateGame = () => {
@@ -34,7 +40,7 @@ const App = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const token = await spotifyAPI.fetchAccessToken(); // Fetch the access token
+        const token = await spotifyAPI.fetchAccessToken();
         setAccessToken(token);
       } catch (error) {
         console.error("Error fetching access token:", error);
@@ -100,18 +106,12 @@ const App = () => {
 
   return (
     <>
-      <NavigationBar />
+      <NavigationBar showCreateGame={showCreateGame} />
       <div className="game-body">
-        <h1>Music Relations Game</h1>
-        <button
-          onClick={() => {
-            setIsCreateGameVisible(true);
-            console.log(isCreateGameVisible);
-          }}
-        >
-          Create Game
-        </button>
-        <CreateGame isVisible={isCreateGameVisible} />
+        <CreateGame
+          isVisible={isCreateGameVisible}
+          closeCreateGame={closeCreateGame}
+        />
         <Error
           message={errorMessage}
           isErrorVisible={isErrorVisible}

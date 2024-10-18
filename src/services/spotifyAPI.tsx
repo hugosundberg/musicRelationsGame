@@ -28,6 +28,7 @@ const fetchAccessToken = async (): Promise<string> => {
       authParameters
     );
     const data = await result.json();
+
     return data.access_token;
   } catch (error) {
     throw new Error("Failed to fetch access token");
@@ -55,6 +56,8 @@ const handleSearch = async (
       authParameters
     );
     const data = await response.json();
+
+    console.log(data);
 
     const artistsData = data.artists.items;
 

@@ -1,16 +1,11 @@
 import "./NavigationBar.css";
 
-const NavigationBar = () => {
+const NavigationBar = ({ showCreateGame, accessToken }: any) => {
   return (
     <div className="nav-bar">
-      <h3>Music Relations</h3>
-      <div className="nav-menu">
-        <ul>
-          <li>Info</li>
-          <li>How To Play</li>
-          <li>About Me</li>
-        </ul>
-      </div>
+      <button>Info</button>
+      <h3>Music Relations Game</h3>
+      <button onClick={showCreateGame}>New Game</button>
     </div>
   );
 };

@@ -2,12 +2,12 @@ import DynamicSearch from "./DynamicSearch";
 import "./CreateGame.css";
 
 const CreateGame = ({
-  isVisable,
+  isVisible,
   accessToken,
   setCurrentArtist,
   closeCreateGame,
 }: any) => {
-  if ((isVisable = true)) {
+  if (isVisible) {
     return (
       <div className="create-game-component">
         <div className="create-game-header">

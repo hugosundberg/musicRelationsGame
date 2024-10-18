@@ -6,6 +6,7 @@ import spotifyAPI from "./services/spotifyAPI";
 import DynamicSearch from "./components/DynamicSearch";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import CreateGame from "./components/CreateGame";
 
 interface ArtistType {
   name: string;
@@ -70,7 +71,7 @@ const App = () => {
     }
 
     try {
-      const artistID = await spotifyAPI.handleSearch(searchQuery, accessToken);
+      await spotifyAPI.handleSearch(searchQuery, accessToken);
     } catch (error) {
       console.error("Error searching artist:", error);
       setErrorMessage("Error occurred during the search. Please try again.");
@@ -97,16 +98,16 @@ const App = () => {
       <NavigationBar />
       <div className="game-body">
         <h1>Music Relations Game</h1>
-        <DynamicSearch
-          accessToken={accessToken}
-          setSelectedArtist={setCurrentArtist}
-        />
+        <CreateGame />
         <Error
           message={errorMessage}
           isErrorVisible={isErrorVisible}
           closeError={closeError}
         />
-        <ArtistList relatedArtists={relatedArtists} />
+        <ArtistList
+          relatedArtists={relatedArtists}
+          currentArtist={currentArtist}
+        />
         {currentArtist}
       </div>
     </>

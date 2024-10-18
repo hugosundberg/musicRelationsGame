@@ -8,17 +8,18 @@ interface Artist {
   id: string;
 }
 
-const Search = ({ accessToken, setSelectedArtist }: any) => {
+const Search = ({ accessToken, setSelectedArtist, header }: any) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Artist[]>([]); // Initialize as an empty array
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [isArtistSelected, setIsArtistSelected] = useState<boolean>(false); // State to track if an artist is selected
 
   // Fetch data from Spotify when searchQuery or accessToken changes
   useEffect(() => {
     const fetchData = async () => {
-      if (!searchQuery) {
-        setSearchResults([]); // Clear results if search query is empty
+      if (!searchQuery || isArtistSelected) {
+        setSearchResults([]); // Clear results if search query is empty or an artist is selected
         return;
       }
 
@@ -40,16 +41,18 @@ const Search = ({ accessToken, setSelectedArtist }: any) => {
 
     // Cleanup timeout if the user types before the delay finishes
     return () => clearTimeout(debounceFetch);
-  }, [searchQuery, accessToken]);
+  }, [searchQuery, accessToken, isArtistSelected]);
 
   // Handle search input
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query); // Update search query
+    setIsArtistSelected(false); // Reset artist selected state when typing
   };
 
   return (
     <div className="search-component">
+      <h2>{header}</h2>
       <input
         className="input-field"
         type="text"
@@ -61,13 +64,19 @@ const Search = ({ accessToken, setSelectedArtist }: any) => {
         <p>Loading...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : Array.isArray(searchResults) && searchResults.length > 0 ? ( // Guard to check if searchResults is an array
+      ) : searchQuery &&
+        !isArtistSelected && // Prevent rendering results after selection
+        Array.isArray(searchResults) &&
+        searchResults.length > 0 ? ( // Show results only when searchQuery is not empty and results are found
         <ul>
           {searchResults.map((result) => (
             <li key={result.id}>
               <button
+                className="button"
                 onClick={() => {
                   setSelectedArtist(result.id);
+                  setSearchQuery(result.name);
+                  setIsArtistSelected(true);
                   setSearchResults([]);
                 }}
               >
@@ -76,9 +85,13 @@ const Search = ({ accessToken, setSelectedArtist }: any) => {
             </li>
           ))}
         </ul>
-      ) : (
+      ) : searchQuery &&
+        !loading &&
+        !searchResults.length &&
+        !isArtistSelected ? ( // Show "No results found" only if there is a query but no results
         <p>No results found</p>
-      )}
+      ) : null}{" "}
+      {/* Otherwise, display nothing */}
     </div>
   );
 };

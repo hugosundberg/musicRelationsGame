@@ -9,20 +9,23 @@ interface ArtistType {
 
 interface ArtistListProps {
   relatedArtists: ArtistType[];
+  currentArtist: string;
 }
 
-const ArtistList = ({ relatedArtists }: ArtistListProps) => {
-  return (
-    <div className="artist-list">
-      {relatedArtists.length > 0 ? (
-        relatedArtists.map((artist, index) => (
-          <ArtistCard key={index} name={artist.name} img={artist.img} />
-        ))
-      ) : (
-        <p></p>
-      )}
-    </div>
-  );
+const ArtistList = ({ relatedArtists, currentArtist }: ArtistListProps) => {
+  if (currentArtist) {
+    return (
+      <div className="artist-list">
+        {relatedArtists.length > 0 ? (
+          relatedArtists.map((artist, index) => (
+            <ArtistCard key={index} name={artist.name} img={artist.img} />
+          ))
+        ) : (
+          <p></p>
+        )}
+      </div>
+    );
+  }
 };
 
 export default ArtistList;

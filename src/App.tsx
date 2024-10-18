@@ -20,9 +20,14 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState<string>(""); // Manage search query
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
   const [currentArtist, setCurrentArtist] = useState<string>("");
+  const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
 
   const closeError = () => {
     setIsErrorVisible(false);
+  };
+
+  const closeCreateGame = () => {
+    setIsCreateGameVisible(false);
   };
 
   // Fetch Access Token when the component is mounted
@@ -98,7 +103,15 @@ const App = () => {
       <NavigationBar />
       <div className="game-body">
         <h1>Music Relations Game</h1>
-        <CreateGame />
+        <button
+          onClick={() => {
+            setIsCreateGameVisible(true);
+            console.log(isCreateGameVisible);
+          }}
+        >
+          Create Game
+        </button>
+        <CreateGame isVisible={isCreateGameVisible} />
         <Error
           message={errorMessage}
           isErrorVisible={isErrorVisible}

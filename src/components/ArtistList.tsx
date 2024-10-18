@@ -9,11 +9,11 @@ interface ArtistType {
 
 interface ArtistListProps {
   relatedArtists: ArtistType[];
-  currentArtist: string;
+  startArtist: string;
 }
 
-const ArtistList = ({ relatedArtists, currentArtist }: ArtistListProps) => {
-  if (currentArtist) {
+const ArtistList = ({ relatedArtists, startArtist }: ArtistListProps) => {
+  if (startArtist) {
     return (
       <div className="artist-list">
         {relatedArtists.length > 0 ? (

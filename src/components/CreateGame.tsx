@@ -4,8 +4,10 @@ import "./CreateGame.css";
 const CreateGame = ({
   isVisible,
   accessToken,
-  setCurrentArtist,
+  setStartArtist,
+  setTargetArtist,
   closeCreateGame,
+  startNewGame,
 }: any) => {
   if (isVisible) {
     return (
@@ -19,16 +21,16 @@ const CreateGame = ({
         <DynamicSearch
           header={"Starting artist"}
           accessToken={accessToken}
-          setSelectedArtist={setCurrentArtist}
+          setSelectedArtist={setStartArtist}
         />
 
         <DynamicSearch
           header={"Target artist"}
           accessToken={accessToken}
-          setSelectedArtist={setCurrentArtist}
+          setSelectedArtist={setTargetArtist}
         />
 
-        <button className="play-button">
+        <button onClick={startNewGame} className="play-button">
           Play <i className="bi bi-play"></i>
         </button>
       </div>

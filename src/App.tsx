@@ -19,7 +19,9 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
-  const [currentArtist, setCurrentArtist] = useState<string>("");
+
+  const [startArtist, setStartArtist] = useState<string>("");
+  const [targetArtist, setTargetArtist] = useState<string>("");
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
@@ -34,6 +36,13 @@ const App = () => {
 
   const closeCreateGame = () => {
     setIsCreateGameVisible(false);
+  };
+
+  const startNewGame = () => {
+    if (startArtist && targetArtist) {
+      fetchRelatedArtists(startArtist);
+      setIsCreateGameVisible(false);
+    }
   };
 
   // Fetch Access Token when the component is mounted
@@ -51,7 +60,7 @@ const App = () => {
     fetchToken();
   }, []);
 
-  // Fetch Related Artists using currentArtist
+  // Fetch Related Artists using startArtist
   const fetchRelatedArtists = async (artistID: string) => {
     if (!accessToken) {
       console.log("Access token not available yet.");
@@ -111,17 +120,17 @@ const App = () => {
         <CreateGame
           isVisible={isCreateGameVisible}
           closeCreateGame={closeCreateGame}
+          accessToken={accessToken}
+          setStartArtist={setStartArtist}
+          setTargetArtist={setTargetArtist}
+          startNewGame={startNewGame}
         />
         <Error
           message={errorMessage}
           isErrorVisible={isErrorVisible}
           closeError={closeError}
         />
-        <ArtistList
-          relatedArtists={relatedArtists}
-          currentArtist={currentArtist}
-        />
-        {currentArtist}
+        <ArtistList relatedArtists={relatedArtists} startArtist={startArtist} />
       </div>
     </>
   );

@@ -52,7 +52,7 @@ const Search = ({ accessToken, setSelectedArtist, header }: any) => {
 
   return (
     <div className="search-component">
-      <h2>{header}</h2>
+      <p>{header}</p>
       <input
         className="input-field"
         type="text"

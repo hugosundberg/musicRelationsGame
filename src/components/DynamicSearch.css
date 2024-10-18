@@ -1,0 +1,30 @@
+.search-component {
+    background-color: white;
+    color: black;
+    width: 100%;
+    max-width: 300px;
+    max-height: 50px;
+}
+
+.input-field {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    margin: 0;
+    background-color: transparent;
+}
+
+button:hover {
+    text-decoration: underline;
+    outline: none;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}

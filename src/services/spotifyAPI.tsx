@@ -1,8 +1,12 @@
-// spotifyAPI.ts
-
 const BASE_URL = "https://api.spotify.com/v1";
 const CLIENT_ID = "e1eebe4956964238811ab09bbe1f57d2";
 const CLIENT_SECRET = "e800e3cc91c84163baa2b4d43e0f84bf";
+
+interface Artist {
+  name: string;
+  img: string;
+  id: string;
+}
 
 // Fetch the access token from Spotify
 const fetchAccessToken = async (): Promise<string> => {
@@ -31,7 +35,10 @@ const fetchAccessToken = async (): Promise<string> => {
 };
 
 // Handle artist search
-const handleSearch = async (searchQuery: string, accessToken: string) => {
+const handleSearch = async (
+  searchQuery: string,
+  accessToken: string
+): Promise<Artist[]> => {
   const authParameters = {
     method: "GET",
     headers: {
@@ -42,16 +49,28 @@ const handleSearch = async (searchQuery: string, accessToken: string) => {
 
   try {
     const response = await fetch(
-      BASE_URL + "/search?q=" + searchQuery + "&type=artist&market=us&offset=0",
+      `${BASE_URL}/search?q=${encodeURIComponent(
+        searchQuery
+      )}&type=artist&limit=10&offset=0`,
       authParameters
     );
     const data = await response.json();
 
-    const artist = data.artists.items[0];
+    const artistsData = data.artists.items;
 
-    return artist.id;
+    // Safely map over the artists data to return the structured array
+    const artists: Artist[] = artistsData.map((artist: any) => ({
+      name: artist.name,
+      img: artist.images && artist.images[0] ? artist.images[0].url : "", // Safely handle images
+      id: artist.id,
+    }));
+
+    console.log(artists);
+
+    return artists;
   } catch (error) {
     console.error("Error fetching artist", error);
+    throw new Error("Failed to fetch artists");
   }
 };
 

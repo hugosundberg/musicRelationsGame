@@ -5,7 +5,11 @@ body, html, #root {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: green;
+  background-color: rgb(0, 10, 0);
+}
+
+h1 {
+  color: white;
 }
 
 .game-body {
@@ -16,6 +20,5 @@ body, html, #root {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: green;
   padding: 40px;
 }

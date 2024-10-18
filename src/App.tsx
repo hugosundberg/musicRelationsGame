@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import ArtistList from "./components/ArtistList";
 import NavigationBar from "./components/NavigationBar";
-import Error from "./components/error";
+import Error from "./components/Error";
 import spotifyAPI from "./services/spotifyAPI";
+import DynamicSearch from "./components/DynamicSearch";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -39,20 +40,15 @@ const App = () => {
   }, []);
 
   // Fetch Related Artists using currentArtist
-  const fetchRelatedArtists = async () => {
+  const fetchRelatedArtists = async (artistID: string) => {
     if (!accessToken) {
       console.log("Access token not available yet.");
       return;
     }
 
-    if (!currentArtist) {
-      console.log("No current artist selected yet.");
-      return;
-    }
-
     try {
       const artists = await spotifyAPI.fetchRelatedArtists(
-        currentArtist,
+        artistID,
         accessToken
       );
       setRelatedArtists(artists);
@@ -75,8 +71,6 @@ const App = () => {
 
     try {
       const artistID = await spotifyAPI.handleSearch(searchQuery, accessToken);
-      setCurrentArtist(artistID); // Update current artist with the artist ID
-      fetchRelatedArtists(); // Fetch related artists after setting the current artist
     } catch (error) {
       console.error("Error searching artist:", error);
       setErrorMessage("Error occurred during the search. Please try again.");
@@ -84,39 +78,36 @@ const App = () => {
     }
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleSearch(); // Trigger search on Enter key press
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [searchQuery, accessToken]);
+
   return (
     <>
       <NavigationBar />
       <div className="game-body">
         <h1>Music Relations Game</h1>
+        <DynamicSearch
+          accessToken={accessToken}
+          setSelectedArtist={setCurrentArtist}
+        />
         <Error
           message={errorMessage}
-          isErrorVisable={isErrorVisible}
+          isErrorVisible={isErrorVisible}
           closeError={closeError}
         />
-
-        {/* Input and Search Button */}
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search for an artist"
-            aria-label="Search artist"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update search query state
-          />
-          <button
-            className="btn btn-secondary"
-            type="button"
-            id="button-addon2"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
-
-        {/* Artist List (Related Artists) */}
         <ArtistList relatedArtists={relatedArtists} />
+        {currentArtist}
       </div>
     </>
   );

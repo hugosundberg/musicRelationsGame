@@ -1,4 +1,4 @@
-import DynamicSearch from "./DynamicSearch";
+import DynamicSearch from "../DynamicSearch/DynamicSearch";
 import "./CreateGame.css";
 
 const CreateGame = ({

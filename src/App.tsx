@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import ArtistList from "./components/ArtistList";
-import NavigationBar from "./components/NavigationBar";
-import Error from "./components/Error";
+import ArtistList from "./components/ArtistList/ArtistList";
+import NavigationBar from "./components/NavigationBar/NavigationBar";
+import Error from "./components/Error/Error";
 import spotifyAPI from "./services/spotifyAPI";
-import GameHeader from "./components/GameHeader";
+import GameHeader from "./components/GameHeader/GameHeader";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
-import CreateGame from "./components/CreateGame";
+import CreateGame from "./components/CreateGame/CreateGame";
 
 interface ArtistType {
   name: string;

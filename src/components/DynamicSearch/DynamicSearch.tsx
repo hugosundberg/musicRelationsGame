@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import spotifyAPI from "../services/spotifyAPI";
+import spotifyAPI from "//Users/hugosundberg/Documents/GitHub/musicRelationsGame/src/services/spotifyAPI.tsx";
 import "./DynamicSearch.css";
 
 interface Artist {

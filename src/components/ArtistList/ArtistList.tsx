@@ -1,4 +1,4 @@
-import ArtistCard from "./ArtistCard";
+import ArtistCard from "../ArtistCard/ArtistCard";
 import "./ArtistList.css";
 
 // Define the type for relatedArtists prop

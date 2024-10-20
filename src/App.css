@@ -5,7 +5,7 @@ body, html, #root {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(58, 58, 58);
+  background-color: rgb(27, 27, 27);
   height: 100vh;
 }
 
@@ -16,10 +16,9 @@ h1 {
 .game-body {
   width: 100%;
   position: relative;
-  top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding-inline: 20px;
 }

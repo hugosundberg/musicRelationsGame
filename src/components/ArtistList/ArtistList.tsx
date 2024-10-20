@@ -11,7 +11,7 @@ interface ArtistType {
 interface ArtistListProps {
   relatedArtists: ArtistType[];
   startArtist: string;
-  handleSetCurrentArtist: (id: string) => void; // Properly type the function
+  handleSetCurrentArtist: (artist: ArtistType) => void; // Properly type the function
 }
 
 const ArtistList = ({
@@ -30,7 +30,7 @@ const ArtistList = ({
             id={artist.id}
             name={artist.name}
             img={artist.img}
-            handleSetCurrentArtist={() => handleSetCurrentArtist(artist.id)} // Pass as a reference
+            handleSetCurrentArtist={() => handleSetCurrentArtist(artist)} // Pass as a reference
           />
         ))
       ) : (

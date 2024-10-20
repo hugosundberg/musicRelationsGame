@@ -4,6 +4,7 @@ import NavigationBar from "./components/NavigationBar/NavigationBar";
 import Error from "./components/Error/Error";
 import spotifyAPI from "./services/spotifyAPI";
 import GameHeader from "./components/GameHeader/GameHeader";
+import CurrentArtist from "./components/CurrentArtist/CurrentArtist";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame/CreateGame";
@@ -27,7 +28,7 @@ const App = () => {
   // Artist states
   const [startArtist, setStartArtist] = useState<Artist>();
   const [targetArtist, setTargetArtist] = useState<Artist>();
-  let [currentArtist, setCurrentArtist] = useState<string>("");
+  const [currentArtist, setCurrentArtist] = useState<Artist>();
   let [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
 
   // Visibility states
@@ -42,9 +43,9 @@ const App = () => {
     setTargetArtist(artist);
   };
 
-  const handleSetCurrentArtist = (id: string) => {
-    setCurrentArtist(id);
-    fetchRelatedArtists(id);
+  const handleSetCurrentArtist = (artist: Artist) => {
+    setCurrentArtist(artist);
+    fetchRelatedArtists(artist.id);
     setGuesses(guesses + 1);
   };
 
@@ -144,6 +145,7 @@ const App = () => {
           targetArtist={targetArtist}
           guesses={guesses}
         />
+        <CurrentArtist currentArtist={currentArtist} />
         <CreateGame
           isVisible={isCreateGameVisible}
           closeCreateGame={closeCreateGame}

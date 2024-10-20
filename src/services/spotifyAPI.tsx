@@ -68,8 +68,6 @@ const handleSearch = async (
       id: artist.id,
     }));
 
-    console.log(artists);
-
     return artists;
   } catch (error) {
     console.error("Error fetching artist", error);
@@ -98,6 +96,7 @@ const fetchRelatedArtists = async (artistID: string, accessToken: string) => {
     return data.artists.map((artist: any) => ({
       name: artist.name,
       img: artist.images && artist.images[0] ? artist.images[0].url : "",
+      id: artist.id,
     }));
   } catch (error) {
     throw new Error("Failed to fetch related artists");

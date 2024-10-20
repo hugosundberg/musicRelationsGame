@@ -15,26 +15,33 @@ interface Artist {
 }
 
 const App = () => {
+  // API states
   const [accessToken, setAccessToken] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
 
+  // Artist states
   const [startArtist, setStartArtist] = useState<Artist>();
   const [targetArtist, setTargetArtist] = useState<Artist>();
-  const [currentArtist, setCurrentArtist] = useState<Artist>();
+  let [currentArtist, setCurrentArtist] = useState<string>("");
+  let [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
 
+  // Visibility states
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
 
   const handleSetStartArtist = (artist: Artist) => {
     setStartArtist(artist);
-    console.log("Start artist: ", artist);
   };
 
   const handleSetTargetArtist = (artist: Artist) => {
     setTargetArtist(artist);
+  };
+
+  const handleSetCurrentArtist = (id: string) => {
+    setCurrentArtist(id);
+    fetchRelatedArtists(id);
   };
 
   const closeError = () => {
@@ -146,6 +153,7 @@ const App = () => {
           <ArtistList
             relatedArtists={relatedArtists}
             startArtist={startArtist.id}
+            handleSetCurrentArtist={handleSetCurrentArtist}
           />
         )}
       </div>

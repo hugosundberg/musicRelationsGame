@@ -6,6 +6,7 @@ body, html, #root {
   display: flex;
   flex-direction: column;
   background-color: rgb(58, 58, 58);
+  height: 100vh;
 }
 
 h1 {

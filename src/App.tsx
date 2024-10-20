@@ -23,6 +23,7 @@ const App = () => {
 
   const [startArtist, setStartArtist] = useState<Artist>();
   const [targetArtist, setTargetArtist] = useState<Artist>();
+  const [currentArtist, setCurrentArtist] = useState<Artist>();
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);

@@ -1,15 +1,44 @@
-const GameHeader = ({ startArtist, targetArtist }: any) => {
+import "./GameHeader.css";
+
+interface Artist {
+  name: string;
+  id: string;
+  img: string;
+}
+
+interface GameHeaderProps {
+  startArtist?: Artist;
+  targetArtist?: Artist;
+}
+
+const GameHeader = ({ startArtist, targetArtist }: GameHeaderProps) => {
   return (
     <div className="start-target-div">
       <h4>Use related artists to go from</h4>
-      <div className="start-target-artist">
-        <img src="" alt="" />
-        <h4>{startArtist}</h4>
-      </div>
-
-      <div className="start-target-artist">
-        <img src="" alt="" />
-        <h4>{targetArtist}</h4>
+      <div className="artist-container">
+        <div className="artist">
+          {startArtist ? (
+            <>
+              <img src={startArtist.img} alt="" className="small-image" />
+              <p>{startArtist.name}</p>
+            </>
+          ) : (
+            "Starting artist"
+          )}
+        </div>
+        <div>
+          <i className="bi bi-arrow-right"></i>
+        </div>
+        <div className="artist">
+          {targetArtist ? (
+            <>
+              <img src={targetArtist.img} alt="" className="small-image" />
+              <p>{targetArtist.name}</p>
+            </>
+          ) : (
+            "Target artist"
+          )}
+        </div>
       </div>
     </div>
   );

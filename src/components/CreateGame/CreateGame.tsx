@@ -4,8 +4,8 @@ import "./CreateGame.css";
 const CreateGame = ({
   isVisible,
   accessToken,
-  setStartArtist,
-  setTargetArtist,
+  handleSetStartArtist,
+  handleSetTargetArtist,
   closeCreateGame,
   startNewGame,
 }: any) => {
@@ -21,13 +21,13 @@ const CreateGame = ({
         <DynamicSearch
           header={"Starting artist"}
           accessToken={accessToken}
-          setSelectedArtist={setStartArtist}
+          handleSetStartArtist={handleSetStartArtist}
         />
 
         <DynamicSearch
           header={"Target artist"}
           accessToken={accessToken}
-          setSelectedArtist={setTargetArtist}
+          handleSetTargetArtist={handleSetTargetArtist}
         />
 
         <button onClick={startNewGame} className="play-button">

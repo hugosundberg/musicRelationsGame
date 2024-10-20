@@ -8,8 +8,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame/CreateGame";
 
-interface ArtistType {
+interface Artist {
   name: string;
+  id: string;
   img: string;
 }
 
@@ -18,13 +19,22 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [relatedArtists, setRelatedArtists] = useState<ArtistType[]>([]);
+  const [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
 
-  const [startArtist, setStartArtist] = useState<string>("");
-  const [targetArtist, setTargetArtist] = useState<string>("");
+  const [startArtist, setStartArtist] = useState<Artist>();
+  const [targetArtist, setTargetArtist] = useState<Artist>();
 
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
+
+  const handleSetStartArtist = (artist: Artist) => {
+    setStartArtist(artist);
+    console.log("Start artist: ", artist);
+  };
+
+  const handleSetTargetArtist = (artist: Artist) => {
+    setTargetArtist(artist);
+  };
 
   const closeError = () => {
     setIsErrorVisible(false);
@@ -40,7 +50,7 @@ const App = () => {
 
   const startNewGame = () => {
     if (startArtist && targetArtist) {
-      fetchRelatedArtists(startArtist);
+      fetchRelatedArtists(startArtist.id);
       setIsCreateGameVisible(false);
     }
   };
@@ -122,8 +132,8 @@ const App = () => {
           isVisible={isCreateGameVisible}
           closeCreateGame={closeCreateGame}
           accessToken={accessToken}
-          setStartArtist={setStartArtist}
-          setTargetArtist={setTargetArtist}
+          handleSetStartArtist={handleSetStartArtist}
+          handleSetTargetArtist={handleSetTargetArtist}
           startNewGame={startNewGame}
         />
         <Error
@@ -131,7 +141,12 @@ const App = () => {
           isErrorVisible={isErrorVisible}
           closeError={closeError}
         />
-        <ArtistList relatedArtists={relatedArtists} startArtist={startArtist} />
+        {startArtist && (
+          <ArtistList
+            relatedArtists={relatedArtists}
+            startArtist={startArtist.id}
+          />
+        )}
       </div>
     </>
   );

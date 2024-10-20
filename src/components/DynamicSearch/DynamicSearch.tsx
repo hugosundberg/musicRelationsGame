@@ -8,7 +8,12 @@ interface Artist {
   id: string;
 }
 
-const Search = ({ accessToken, setSelectedArtist, header }: any) => {
+const Search = ({
+  accessToken,
+  handleSetStartArtist,
+  handleSetTargetArtist,
+  header,
+}: any) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Artist[]>([]); // Initialize as an empty array
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,8 +51,8 @@ const Search = ({ accessToken, setSelectedArtist, header }: any) => {
   // Handle search input
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
-    setSearchQuery(query); // Update search query
-    setIsArtistSelected(false); // Reset artist selected state when typing
+    setSearchQuery(query);
+    setIsArtistSelected(false);
   };
 
   return (
@@ -67,17 +72,24 @@ const Search = ({ accessToken, setSelectedArtist, header }: any) => {
       ) : searchQuery &&
         !isArtistSelected && // Prevent rendering results after selection
         Array.isArray(searchResults) &&
-        searchResults.length > 0 ? ( // Show results only when searchQuery is not empty and results are found
+        searchResults.length > 0 ? (
         <ul>
           {searchResults.map((result) => (
             <li key={result.id}>
               <button
                 className="button"
                 onClick={() => {
-                  setSelectedArtist(result.id);
-                  setSearchQuery(result.name);
-                  setIsArtistSelected(true);
-                  setSearchResults([]);
+                  if (header === "Starting artist") {
+                    handleSetStartArtist(result);
+                    setSearchQuery(result.name);
+                    setIsArtistSelected(true);
+                    setSearchResults([]);
+                  } else if (header === "Target artist") {
+                    handleSetTargetArtist(result);
+                    setSearchQuery(result.name);
+                    setIsArtistSelected(true);
+                    setSearchResults([]);
+                  }
                 }}
               >
                 {result.name}
@@ -88,7 +100,7 @@ const Search = ({ accessToken, setSelectedArtist, header }: any) => {
       ) : searchQuery &&
         !loading &&
         !searchResults.length &&
-        !isArtistSelected ? ( // Show "No results found" only if there is a query but no results
+        !isArtistSelected ? (
         <p>No results found</p>
       ) : null}{" "}
       {/* Otherwise, display nothing */}

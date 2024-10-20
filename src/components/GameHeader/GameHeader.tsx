@@ -9,11 +9,16 @@ interface Artist {
 interface GameHeaderProps {
   startArtist?: Artist;
   targetArtist?: Artist;
+  guesses: number;
 }
 
-const GameHeader = ({ startArtist, targetArtist }: GameHeaderProps) => {
+const GameHeader = ({
+  startArtist,
+  targetArtist,
+  guesses,
+}: GameHeaderProps) => {
   return (
-    <div className="start-target-div">
+    <div className="game-header-container">
       <h4>Use related artists to go from</h4>
       <div className="artist-container">
         <div className="artist">
@@ -39,6 +44,10 @@ const GameHeader = ({ startArtist, targetArtist }: GameHeaderProps) => {
             "Target artist"
           )}
         </div>
+      </div>
+      <div className="guesses">
+        <p>Guesses</p>
+        <h2>{guesses}</h2>
       </div>
     </div>
   );

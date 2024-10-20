@@ -21,6 +21,9 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  // Guess state
+  const [guesses, setGuesses] = useState(0);
+
   // Artist states
   const [startArtist, setStartArtist] = useState<Artist>();
   const [targetArtist, setTargetArtist] = useState<Artist>();
@@ -42,6 +45,7 @@ const App = () => {
   const handleSetCurrentArtist = (id: string) => {
     setCurrentArtist(id);
     fetchRelatedArtists(id);
+    setGuesses(guesses + 1);
   };
 
   const closeError = () => {
@@ -135,7 +139,11 @@ const App = () => {
     <>
       <NavigationBar showCreateGame={showCreateGame} />
       <div className="game-body">
-        <GameHeader startArtist={startArtist} targetArtist={targetArtist} />
+        <GameHeader
+          startArtist={startArtist}
+          targetArtist={targetArtist}
+          guesses={guesses}
+        />
         <CreateGame
           isVisible={isCreateGameVisible}
           closeCreateGame={closeCreateGame}

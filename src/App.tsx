@@ -8,6 +8,7 @@ import CurrentArtist from "./components/CurrentArtist/CurrentArtist";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame/CreateGame";
+import GameOver from "./components/GameOver/GameOver";
 
 interface Artist {
   name: string;
@@ -29,11 +30,13 @@ const App = () => {
   const [startArtist, setStartArtist] = useState<Artist>();
   const [targetArtist, setTargetArtist] = useState<Artist>();
   const [currentArtist, setCurrentArtist] = useState<Artist>();
-  let [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
+  const [relatedArtists, setRelatedArtists] = useState<Artist[]>([]);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   // Visibility states
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
+  const [isGameOverVisible, setIsGameOverVisible] = useState(true);
 
   const handleSetStartArtist = (artist: Artist) => {
     setStartArtist(artist);
@@ -59,6 +62,10 @@ const App = () => {
 
   const closeCreateGame = () => {
     setIsCreateGameVisible(false);
+  };
+
+  const closeGameOver = () => {
+    setIsGameOverVisible(false);
   };
 
   const startNewGame = () => {
@@ -153,6 +160,13 @@ const App = () => {
           handleSetStartArtist={handleSetStartArtist}
           handleSetTargetArtist={handleSetTargetArtist}
           startNewGame={startNewGame}
+        />
+        <GameOver
+          isVisible={isGameOverVisible}
+          closeGameOver={closeGameOver}
+          startArtist={startArtist}
+          targetArtist={targetArtist}
+          guesses={guesses}
         />
         <Error
           message={errorMessage}

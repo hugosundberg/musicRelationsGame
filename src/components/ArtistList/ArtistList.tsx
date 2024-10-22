@@ -34,7 +34,7 @@ const ArtistList = ({
           />
         ))
       ) : (
-        <p>No related artists found.</p> // Add a default message
+        <p></p> // Add a default message
       )}
     </div>
   );

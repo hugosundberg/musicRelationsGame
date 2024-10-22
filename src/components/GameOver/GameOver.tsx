@@ -27,8 +27,11 @@ const GameOver = ({
   if (isVisible)
     return (
       <>
+        <div className="overlay" onClick={closeGameOver}></div>
         <div className="game-over-container">
-          <i className="bi bi-x-circle" onClick={closeGameOver}></i>
+          <div className="game-over-header">
+            <i className="bi bi-x-circle" onClick={closeGameOver}></i>
+          </div>
           <h2>Congratulations! You did it!</h2>
           <div className="artist-container">
             <div className="artist">
@@ -41,7 +44,7 @@ const GameOver = ({
                 "Starting artist"
               )}
             </div>
-            <div>
+            <div className="arrow">
               <i className="bi bi-arrow-right"></i>
             </div>
             <div className="artist">

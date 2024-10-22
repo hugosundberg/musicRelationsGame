@@ -47,9 +47,15 @@ const App = () => {
   };
 
   const handleSetCurrentArtist = (artist: Artist) => {
-    setCurrentArtist(artist);
-    fetchRelatedArtists(artist.id);
-    setGuesses(guesses + 1);
+    if (artist.id === targetArtist.id) {
+      setIsGameOver(true);
+      setIsGameOverVisible(true);
+      setGuesses(guesses + 1);
+    } else {
+      setCurrentArtist(artist);
+      fetchRelatedArtists(artist.id);
+      setGuesses(guesses + 1);
+    }
   };
 
   const closeError = () => {

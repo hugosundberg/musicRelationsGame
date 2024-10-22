@@ -47,7 +47,7 @@ const App = () => {
   };
 
   const handleSetCurrentArtist = (artist: Artist) => {
-    if (artist.id === targetArtist.id) {
+    if (targetArtist && artist.id === targetArtist.id) {
       setIsGameOver(true);
       setIsGameOverVisible(true);
       setGuesses(guesses + 1);

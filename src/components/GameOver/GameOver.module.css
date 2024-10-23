@@ -5,10 +5,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 40px;
+    border-radius: 30px;
     padding: 25px;
-    border: rgb(100, 100, 100) solid 2px;
+    border: var(--accent-color2) solid 2px;
+    background-color: black;
     z-index: 1000;
+    position: fixed;
+    top: 200px;
 }
 
 .overlay {

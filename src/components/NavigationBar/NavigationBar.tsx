@@ -9,9 +9,13 @@ interface NavigationProps {
 const NavigationBar = ({ showCreateGame, showInfo }: NavigationProps) => {
   return (
     <div className="nav-bar">
-      <button onClick={showInfo}>Info</button>
+      <button onClick={showInfo} className="button">
+        Info
+      </button>
       <h3>Music Relations Game</h3>
-      <button onClick={showCreateGame}>New Game</button>
+      <button onClick={showCreateGame} className="button">
+        New Game
+      </button>
     </div>
   );
 };

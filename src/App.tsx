@@ -10,6 +10,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame/CreateGame";
 import GameOver from "./components/GameOver/GameOver";
 import Info from "./components/Info/Info";
+import StartScreen from "./components/StartScreen/StartScreen";
 
 interface Artist {
   name: string;
@@ -22,6 +23,7 @@ const App = () => {
   const [accessToken, setAccessToken] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
+  // Error state
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Guess state
@@ -39,6 +41,8 @@ const App = () => {
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
   const [isGameOverVisible, setIsGameOverVisible] = useState(false);
   const [isInfoVisible, setIsInfoVisible] = useState(false);
+  const [isGameHeaderVisible, setIsGameHeaderVisible] = useState(false);
+  const [isStartScreenVisible, setIsStartScreenVisible] = useState(true);
 
   const handleSetStartArtist = (artist: Artist) => {
     setStartArtist(artist);
@@ -64,6 +68,11 @@ const App = () => {
     setIsInfoVisible(false);
   };
 
+  const closeStartScreen = () => {
+    showCreateGame();
+    setIsStartScreenVisible(false);
+  };
+
   const showInfo = () => {
     setIsInfoVisible(true);
   };
@@ -86,12 +95,13 @@ const App = () => {
 
   const startNewGame = () => {
     if (startArtist && targetArtist) {
+      setIsGameHeaderVisible(true);
       setGuesses(0);
       fetchRelatedArtists(startArtist.id);
       setIsCreateGameVisible(false);
     }
   };
-
+  <a href=""></a>;
   // Fetch Access Token when the component is mounted
   useEffect(() => {
     const fetchToken = async () => {
@@ -164,7 +174,12 @@ const App = () => {
     <>
       <NavigationBar showCreateGame={showCreateGame} showInfo={showInfo} />
       <div className="game-body">
+        <StartScreen
+          isVisible={isStartScreenVisible}
+          onClick={closeStartScreen}
+        />
         <GameHeader
+          isVisible={isGameHeaderVisible}
           startArtist={startArtist}
           targetArtist={targetArtist}
           guesses={guesses}
@@ -193,6 +208,7 @@ const App = () => {
         />
         {startArtist && (
           <ArtistList
+            isGameOver={isGameOver}
             relatedArtists={relatedArtists}
             startArtist={startArtist.id}
             handleSetCurrentArtist={handleSetCurrentArtist}

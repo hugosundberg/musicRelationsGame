@@ -1,3 +1,4 @@
+
 .nav-bar {
   display: flex;
   justify-content: center;
@@ -6,16 +7,21 @@
 }
 
 .nav-bar h3 {
-  color: white;
+  color: var(--accent-color2);
   font-size: 30px;
   padding-inline: 40px;
 }
 
 .nav-bar button {
+  width: 150px;
   border-radius: 30px;
+  border: var(--accent-color) solid 1px;
 }
 
 .nav-bar button:hover {
-  outline: transparent;
+  background-color: var(--accent-color2);
+  text-decoration: none;
 }
+
+
 

@@ -7,6 +7,7 @@
     align-items: center;
     padding: 10px;
     max-width: 170px;
+    transition: scale 0.2s;
 }
 
 .artist-card:hover {

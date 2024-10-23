@@ -1,6 +1,6 @@
 .create-game-component {
     width: 450px;
-    border: lightgray solid 1px;
+    border: var(--accent-color2) solid 1px;
     border-radius: 20px;
     padding: 20px;
     background-color: black;
@@ -39,4 +39,9 @@
     display: flex;
     gap: 10px;
     margin-left: 20px;
+}
+
+.play-button:hover {
+    background-color: var(--accent-color2);
+    text-decoration: none;
 }

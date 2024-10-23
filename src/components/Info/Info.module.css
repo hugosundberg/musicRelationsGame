@@ -1,0 +1,42 @@
+.infoContainer {
+    width: 400px;
+    height: 400px;
+    position: fixed;
+    top: 80px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    z-index: 1000;
+    border: rgb(104, 103, 103) solid 2px;
+    border-radius: 20px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    z-index: 999; /* Ensure it appears above the content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoContainer li {
+    list-style: disc;
+    margin-left: 20px;
+    margin: 10px;
+}
+
+
+.infoHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.infoHeader i:hover {
+    cursor: pointer;
+}

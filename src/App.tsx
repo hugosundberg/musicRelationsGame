@@ -9,6 +9,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import CreateGame from "./components/CreateGame/CreateGame";
 import GameOver from "./components/GameOver/GameOver";
+import Info from "./components/Info/Info";
 
 interface Artist {
   name: string;
@@ -37,6 +38,7 @@ const App = () => {
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
   const [isGameOverVisible, setIsGameOverVisible] = useState(false);
+  const [isInfoVisible, setIsInfoVisible] = useState(false);
 
   const handleSetStartArtist = (artist: Artist) => {
     setStartArtist(artist);
@@ -56,6 +58,14 @@ const App = () => {
       fetchRelatedArtists(artist.id);
       setGuesses(guesses + 1);
     }
+  };
+
+  const closeInfo = () => {
+    setIsInfoVisible(false);
+  };
+
+  const showInfo = () => {
+    setIsInfoVisible(true);
   };
 
   const closeError = () => {
@@ -152,7 +162,7 @@ const App = () => {
 
   return (
     <>
-      <NavigationBar showCreateGame={showCreateGame} />
+      <NavigationBar showCreateGame={showCreateGame} showInfo={showInfo} />
       <div className="game-body">
         <GameHeader
           startArtist={startArtist}
@@ -168,6 +178,7 @@ const App = () => {
           handleSetTargetArtist={handleSetTargetArtist}
           startNewGame={startNewGame}
         />
+        <Info isVisible={isInfoVisible} closeInfo={closeInfo} />
         <GameOver
           isVisible={isGameOverVisible}
           closeGameOver={closeGameOver}

@@ -1,4 +1,4 @@
-import "./GameHeader.css";
+import styles from "./GameHeader.module.css";
 
 interface Artist {
   name: string;
@@ -18,13 +18,13 @@ const GameHeader = ({
   guesses,
 }: GameHeaderProps) => {
   return (
-    <div className="game-header-container">
+    <div className={styles.gameHeaderContainer}>
       <h4>Use related artists to go from</h4>
-      <div className="artist-container">
-        <div className="artist">
+      <div className={styles.artistContainer}>
+        <div className={styles.artist}>
           {startArtist ? (
             <>
-              <img src={startArtist.img} alt="" className="small-image" />
+              <img src={startArtist.img} alt="" className={styles.smallImage} />
               <p>{startArtist.name}</p>
             </>
           ) : (
@@ -34,10 +34,14 @@ const GameHeader = ({
         <div>
           <i className="bi bi-arrow-right"></i>
         </div>
-        <div className="artist">
+        <div className={styles.artist}>
           {targetArtist ? (
             <>
-              <img src={targetArtist.img} alt="" className="small-image" />
+              <img
+                src={targetArtist.img}
+                alt=""
+                className={styles.smallImage}
+              />
               <p>{targetArtist.name}</p>
             </>
           ) : (
@@ -45,7 +49,7 @@ const GameHeader = ({
           )}
         </div>
       </div>
-      <div className="guesses">
+      <div className={styles.guesses}>
         <p>Guesses</p>
         <h2>{guesses}</h2>
       </div>

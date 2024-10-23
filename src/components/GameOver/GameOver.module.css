@@ -29,10 +29,10 @@
     flex-direction: row;
     width: 100%;
     justify-content: right;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-i:hover {
+.gameOverHeader i:hover {
     cursor: pointer;
 }
 
@@ -43,6 +43,7 @@ i:hover {
     width: fit-content;
     height: 60px;
     margin-bottom: 20px;
+    gap: 10px;
 }
 
 .artistContainer :nth-child(1) {
@@ -54,7 +55,7 @@ i:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 200px;
+    gap: 10px;
     font-size: 10px;
 }
 
@@ -65,9 +66,7 @@ i:hover {
 }
 
 .arrow {
-    scale: 1.6;
-    margin-inline: 20px;
-    margin-top: 10px;
+    scale: 1.5;
 }
 
 .smallImage {

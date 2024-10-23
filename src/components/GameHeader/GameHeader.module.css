@@ -27,10 +27,15 @@
 .artistContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 10px;
     align-items: center;
-    width: 100%;
+    width: fit-content;
     height: 40px;
+}
+
+.arrow {
+    scale: 1.5;
+    margin-top: 10px;
 }
 
 .artist {
@@ -39,9 +44,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 200px;
-    font-size: 10px;
     gap: 10px;
+    font-size: 10px;
 }
 
 .artist p {

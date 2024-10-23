@@ -76,6 +76,7 @@ const App = () => {
 
   const startNewGame = () => {
     if (startArtist && targetArtist) {
+      setGuesses(0);
       fetchRelatedArtists(startArtist.id);
       setIsCreateGameVisible(false);
     }

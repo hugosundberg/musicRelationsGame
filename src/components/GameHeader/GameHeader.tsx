@@ -31,7 +31,7 @@ const GameHeader = ({
             "Starting artist"
           )}
         </div>
-        <div>
+        <div className={styles.arrow}>
           <i className="bi bi-arrow-right"></i>
         </div>
         <div className={styles.artist}>

@@ -36,7 +36,7 @@ const App = () => {
   // Visibility states
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const [isCreateGameVisible, setIsCreateGameVisible] = useState(false);
-  const [isGameOverVisible, setIsGameOverVisible] = useState(true);
+  const [isGameOverVisible, setIsGameOverVisible] = useState(false);
 
   const handleSetStartArtist = (artist: Artist) => {
     setStartArtist(artist);

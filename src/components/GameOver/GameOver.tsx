@@ -1,4 +1,4 @@
-import "./GameOver.css";
+import styles from "./GameOver.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { MouseEventHandler } from "react";
@@ -27,30 +27,38 @@ const GameOver = ({
   if (isVisible)
     return (
       <>
-        <div className="overlay" onClick={closeGameOver}></div>
-        <div className="game-over-container">
-          <div className="game-over-header">
+        <div className={styles.overlay} onClick={closeGameOver}></div>
+        <div className={styles.gameOverContainer}>
+          <div className={styles.gameOverHeader}>
             <i className="bi bi-x-circle" onClick={closeGameOver}></i>
           </div>
           <h2>Congratulations! You did it!</h2>
-          <div className="artist-container">
-            <div className="artist">
+          <div className={styles.artistContainer}>
+            <div className={styles.artist}>
               {startArtist ? (
                 <>
-                  <img src={startArtist.img} alt="" className="small-image" />
+                  <img
+                    src={startArtist.img}
+                    alt=""
+                    className={styles.smallImage}
+                  />
                   <p>{startArtist.name}</p>
                 </>
               ) : (
                 "Starting artist"
               )}
             </div>
-            <div className="arrow">
+            <div className={styles.arrow}>
               <i className="bi bi-arrow-right"></i>
             </div>
-            <div className="artist">
+            <div className={styles.artist}>
               {targetArtist ? (
                 <>
-                  <img src={targetArtist.img} alt="" className="small-image" />
+                  <img
+                    src={targetArtist.img}
+                    alt=""
+                    className={styles.smallImage}
+                  />
                   <p>{targetArtist.name}</p>
                 </>
               ) : (

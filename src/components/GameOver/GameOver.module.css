@@ -1,4 +1,4 @@
-.game-over-container {
+.gameOverContainer {
     height: 250px;
     width: 600px;
     color: white;
@@ -24,29 +24,28 @@
     align-items: center;
 }
 
-.game-over-header {
+.gameOverHeader {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: right;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 i:hover {
     cursor: pointer;
 }
 
-.artist-container {
+.artistContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     width: fit-content;
-    gap: 10px;
     height: 60px;
     margin-bottom: 20px;
 }
 
-.artist-container :nth-child(1) {
+.artistContainer :nth-child(1) {
     justify-content: right;
 }
 
@@ -71,7 +70,7 @@ i:hover {
     margin-top: 10px;
 }
 
-.small-image {
+.smallImage {
     width: 40px;
     height: 40px;
     border-radius: 100px;

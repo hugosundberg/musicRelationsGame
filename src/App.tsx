@@ -101,7 +101,7 @@ const App = () => {
       setIsCreateGameVisible(false);
     }
   };
-  <a href=""></a>;
+
   // Fetch Access Token when the component is mounted
   useEffect(() => {
     const fetchToken = async () => {

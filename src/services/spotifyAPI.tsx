@@ -57,8 +57,6 @@ const handleSearch = async (
     );
     const data = await response.json();
 
-    console.log(data);
-
     const artistsData = data.artists.items;
 
     // Safely map over the artists data to return the structured array
@@ -91,6 +89,9 @@ const fetchRelatedArtists = async (artistID: string, accessToken: string) => {
       authParameters
     );
     const data = await response.json();
+
+    console.log(data);
+    
 
     // Extract relevant information for each artist
     return data.artists.map((artist: any) => ({

@@ -16,7 +16,7 @@ const StartScreen = ({ isVisible, onClick }: StartScreenProps) => {
           endpoint, effectively causing this app to lose its core functionality.
           If Spotify decides to re-enable the endpoint, this app will be up and
           running again! Feel free to visit my{" "}
-          <a href="/hugo">portfolio website</a> to try out
+          <a href="https://hugosundberg.github.io/hugo/">portfolio website</a> to try out
           my other apps!
         </p>
         <h2>Welcome!</h2>
